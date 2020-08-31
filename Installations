@@ -1,0 +1,40 @@
+CONTRO-SCRIPT:
+#!/bin/bash
+
+yum install python3 -y
+yum install vim -y
+
+alternatives --set python /usr/bin/python3
+
+hostnamectl set-hostname control.example.com
+
+echo "redhatrhce" | passwd --stdin root
+
+sed -re 's/^(PasswordAuthentication)([[:space:]]+)no/\1\2yes/' -i.`date -I` /etc/ssh/sshd_config
+
+systemctl restart sshd
+
+pip3 install ansible 
+
+============================
+NODE-SCRIPT
+
+#!/bin/bash
+
+echo "password" | passwd --stdin root
+
+sed -re 's/^(PasswordAuthentication)([[:space:]]+)no/\1\2yes/' -i.`date -I` /etc/ssh/sshd_config
+
+systemctl restart sshd
+
+=======================
+JENKINS:
+#!/bin/bash
+yum remove -y java
+yum install java-1.8.0 -y
+yum install java-1.8.0-openjdk -y
+yum install wget -y
+wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo
+rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
+yum install jenkins -y
+systemctl start jenkins
