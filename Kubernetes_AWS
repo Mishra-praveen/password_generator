@@ -1,7 +1,7 @@
 Install AWS CLI on Instance
  
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-yum install gzip -y
+yum install unzip-6.0-43.el8.x86_64 -y
 unzip awscliv2.zip
 sudo ./aws/install
 
@@ -27,7 +27,7 @@ echo 'export KOPS_CLUSTER_NAME=praveen.in.k8s' >> .bashrc
 echo 'export KOPS_STATE_STORE=s3://praveen.in.k8s' >> .bashrc
 source ~/.bashrc
 
-ssh-keygen
+ssh-keygen -f ./ssh/id_rsa
 
 CLUSTER-DEFINITION:
 
