@@ -22,7 +22,7 @@ mv ./kubectl /usr/local/bin/kubectl
 
 echo 'export KOPS_CLUSTER_NAME=praveen.in.k8s' >> .bashrc
 echo 'export KOPS_STATE_STORE=s3://praveen.in.k8s' >> .bashrc
-echo 'export PATH=$PATH:/usr/local/bin'
+echo 'export PATH=$PATH:/usr/local/bin' >> .bashrc
 source ~/.bashrc
 
 #Create S3 bucket in AWS
