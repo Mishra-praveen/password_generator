@@ -6,26 +6,9 @@ yum install vim -y
 
 alternatives --set python /usr/bin/python3
 
-hostnamectl set-hostname control.example.com
-
-echo "redhatrhce" | passwd --stdin root
-
-sed -re 's/^(PasswordAuthentication)([[:space:]]+)no/\1\2yes/' -i.`date -I` /etc/ssh/sshd_config
-
-systemctl restart sshd
-
 pip3 install ansible 
 
 ============================
-NODE-SCRIPT
-
-#!/bin/bash
-
-echo "password" | passwd --stdin root
-
-sed -re 's/^(PasswordAuthentication)([[:space:]]+)no/\1\2yes/' -i.`date -I` /etc/ssh/sshd_config
-
-systemctl restart sshd
 
 =======================
 JENKINS:
