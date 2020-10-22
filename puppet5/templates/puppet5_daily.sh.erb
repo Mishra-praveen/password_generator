@@ -1,0 +1,22 @@
+#!/bin/sh
+
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
+badness=""
+for num in 1 2 3 4 5
+do
+  /usr/local/bin/puppet5
+
+  badness=$(sed -r 's:\x1B\[[0-9;]*[mK]::g'  /tmp/last_puppet_run.log  | grep -P '^Error: ' | grep -P -v 'Error: Could not prefetch package provider .(yum|rpm).: invalid byte sequence in (UTF-8|US-ASCII)')
+
+  if [ -z "$badness" ]
+  then
+    break
+  fi
+done
+
+if [ "$badness" ]
+then
+  echo -e "Host $(uname -a); see the puppet5_daily cron email for details, or look at /tmp/last_puppet_run.log ; errors: \n$badness" | mail -s "PUPPET CAN'T COMPLETE on $(uname -n)" monitoring@cytobank.org
+fi
