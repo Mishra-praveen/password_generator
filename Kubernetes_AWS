@@ -35,7 +35,7 @@ ssh-keygen -t rsa -f .ssh/id_rsa -q -P ""
 kops create cluster \
 --state=${KOPS_STATE_STORE} \
 --node-count=2 \
---image=XXX \
+--image=ami-0ca5c3bd5a268e7db \
 --master-size=t2.micro \
 --node-size=t2.micro \
 --zones=us-east-1a \
